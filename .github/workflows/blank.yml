@@ -46,7 +46,7 @@ jobs:
           for commit_hash in $commit_hashes
           do
               # Your code here, for example, print each commit hash
-              if [[ "$commit_hash" == "e7c811bc096a41508ac1c9d2d087602849e82436" ]]; then
+              if [[ "$commit_hash" == "8a395576a77ef3f0d72ae33f6ad805e9860fa796" ]]; then
                 break
               fi
               echo "Commit Hash: $commit_hash"

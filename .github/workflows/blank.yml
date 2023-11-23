@@ -40,6 +40,7 @@ jobs:
           #git reset --soft ${{ steps.out-hash.outputs.release-hash }}
           #git revert --no-edit -m 1 HEAD..${{ steps.out-hash.outputs.release-hash }}
           #git revert --no-edit -m 1 ${{ steps.out-hash.outputs.release-hash }}..HEAD
+          git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD
           commit_hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
           for commit_hash in $commit_hashes
           do

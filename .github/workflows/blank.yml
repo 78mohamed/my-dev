@@ -28,7 +28,6 @@ jobs:
         id: out-hash
         run: |
           hash=$(git show-ref --tags -s ${{ github.event.inputs.release }})
-          echo $hash
           echo "release-hash=$hash" >> $GITHUB_OUTPUT
       
       
@@ -38,14 +37,5 @@ jobs:
           git rev-parse HEAD
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          #git reset --hard ${{ steps.out-hash.outputs.release-hash }}
-          #git revert --no-edit HEAD^..${{ steps.out-hash.outputs.release-hash }}
-          #git push
-          #git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD | xargs git revert -m 1 --no-edit
-          commit_count=$(git rev-list --count ${{ steps.out-hash.outputs.release-hash }}..HEAD)
-          echo "Number of commits: $commit_count"
-          ((commit_count=commit_count-1))
-          echo "Number of commits: $commit_count"
-          git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD
-          git revert --no-edit -m 1 HEAD~$commit_count..
-          #dummy commit3
+          git reset --soft ${{ steps.out-hash.outputs.release-hash }}
+          git push

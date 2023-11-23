@@ -47,7 +47,7 @@ jobs:
           do
               # Your code here, for example, print each commit hash
               echo "Commit Hash: $commit_hash"
-              git revert --no-edit -m 1 $commit_hash
+              git revert --no-edit -m 0 $commit_hash
               if [[ "$commit_hash" == "e7c811bc096a41508ac1c9d2d087602849e82436" ]]; then
                 break
               fi

@@ -44,6 +44,9 @@ jobs:
           git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD
           commit_hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
           for commit_hash in $commit_hashes
+          echo "***********************************"
+          git show 151b50a7cf3733feca319a53d988225dcda3cb39
+          echo "***********************************"
           do
               # Your code here, for example, print each commit hash
               if [[ "$commit_hash" == "8a395576a77ef3f0d72ae33f6ad805e9860fa796" ]]; then

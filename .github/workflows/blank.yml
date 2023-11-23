@@ -39,5 +39,9 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           #git reset --soft ${{ steps.out-hash.outputs.release-hash }}
           #git revert --no-edit -m 1 HEAD..${{ steps.out-hash.outputs.release-hash }}
-          git revert --no-edit -m 1 ${{ steps.out-hash.outputs.release-hash }}..HEAD
-          git push
+          #git revert --no-edit -m 1 ${{ steps.out-hash.outputs.release-hash }}..HEAD
+          commit-hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
+          for hash in commit-hashes;do
+            echo $hash
+          done
+          #git push

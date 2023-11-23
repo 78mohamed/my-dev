@@ -49,10 +49,10 @@ jobs:
           for commit_hash in $commit_hashes
           do
               # Your code here, for example, print each commit hash
-              if [[ "$commit_hash" == "8a395576a77ef3f0d72ae33f6ad805e9860fa796" ]]; then
-                break
-              fi
+              #if [[ "$commit_hash" == "8a395576a77ef3f0d72ae33f6ad805e9860fa796" ]]; then
+              #  break
+              #fi
               echo "Commit Hash: $commit_hash"
-              git revert --no-edit -m 1 $commit_hash
+              git revert --no-edit -n -m 1 $commit_hash
           done
           #git push

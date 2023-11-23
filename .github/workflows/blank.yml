@@ -46,8 +46,6 @@ jobs:
           echo "***********************************"
           git show 151b50a7cf3733feca319a53d988225dcda3cb39
           echo "***********************************"
-          git show --summary ${{ steps.out-hash.outputs.release-hash }}^
-          ecgo "*************************************"
           for commit_hash in $commit_hashes
           do
               # Your code here, for example, print each commit hash
@@ -57,6 +55,5 @@ jobs:
               echo "Commit Hash: $commit_hash"
               git revert --no-edit -n -m 1 $commit_hash
           done
-          git add .
           git commit -m "revert to release ${{ github.event.inputs.release }}"
           #git push

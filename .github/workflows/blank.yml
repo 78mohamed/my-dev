@@ -28,8 +28,8 @@ jobs:
         id: out-hash
         run: |
           hash=$(git show-ref --tags -s ${{ github.event.inputs.release }})
+          echo $hash
           echo "release-hash=$hash" >> $GITHUB_OUTPUT
-          echo "the tag sha : $hash"
       
       
       
@@ -38,22 +38,12 @@ jobs:
           git rev-parse HEAD
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          #git reset --soft ${{ steps.out-hash.outputs.release-hash }}
-          #git revert --no-edit -m 1 HEAD..${{ steps.out-hash.outputs.release-hash }}
-          #git revert --no-edit -m 1 ${{ steps.out-hash.outputs.release-hash }}..HEAD
+          #git reset --hard ${{ steps.out-hash.outputs.release-hash }}
+          #git revert --no-edit HEAD^..${{ steps.out-hash.outputs.release-hash }}
+          #git push
+          #git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD | xargs git revert -m 1 --no-edit
+          commit_count=$(git rev-list --count ${{ steps.out-hash.outputs.release-hash }}..HEAD)
+          echo "Number of commits: $commit_count"
           git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD
-          commit_hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
-          echo "***********************************"
-          git show 151b50a7cf3733feca319a53d988225dcda3cb39
-          echo "***********************************"
-          for commit_hash in $commit_hashes
-          do
-              # Your code here, for example, print each commit hash
-              #if [[ "$commit_hash" == "8a395576a77ef3f0d72ae33f6ad805e9860fa796" ]]; then
-              #  break
-              #fi
-              echo "Commit Hash: $commit_hash"
-              git revert --no-edit -n -m 1 $commit_hash
-          done
-          git commit -m "revert to release ${{ github.event.inputs.release }}"
-          git push
+          #git revert --no-edit -m 1 HEAD~24..
+          #dummy commit3

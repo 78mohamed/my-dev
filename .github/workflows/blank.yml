@@ -55,4 +55,5 @@ jobs:
               echo "Commit Hash: $commit_hash"
               git revert --no-edit -n -m 1 $commit_hash
           done
+          git add .
           #git push

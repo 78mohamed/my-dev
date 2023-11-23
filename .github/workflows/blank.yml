@@ -56,4 +56,5 @@ jobs:
               git revert --no-edit -n -m 1 $commit_hash
           done
           git add .
+          git commit -m "revert to release ${{ github.event.inputs.release }}"
           #git push

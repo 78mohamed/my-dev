@@ -42,11 +42,14 @@ jobs:
           #git revert --no-edit -m 1 HEAD..${{ steps.out-hash.outputs.release-hash }}
           #git revert --no-edit -m 1 ${{ steps.out-hash.outputs.release-hash }}..HEAD
           git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD
-          #commit_hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
-          #for commit_hash in $commit_hashes
-          #do
-          #    # Your code here, for example, print each commit hash
-          #    echo "Commit Hash: $commit_hash"
-          #    git revert --no-edit -m 1 $commit_hash
-          #done
+          commit_hashes=$(git log --pretty=format:"%H" ${{ steps.out-hash.outputs.release-hash }}..HEAD)
+          for commit_hash in $commit_hashes
+          do
+              # Your code here, for example, print each commit hash
+              echo "Commit Hash: $commit_hash"
+              git revert --no-edit -m 1 $commit_hash
+              if [[ "$commit_hash" == "e7c811bc096a41508ac1c9d2d087602849e82436" ]]; then
+                break
+              fi
+          done
           #git push

@@ -29,6 +29,7 @@ jobs:
         run: |
           hash=$(git show-ref --tags -s ${{ github.event.inputs.release }})
           echo "release-hash=$hash" >> $GITHUB_OUTPUT
+          echo "the tag sha : $hash"
       
       
       
